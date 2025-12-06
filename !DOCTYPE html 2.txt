@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoQuilla Calculator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body { box-sizing: border-box; }
+    .editable-green { background-color: #dcfce7; border-color: #16a34a; }
+    .premium-gold { background-color: #fef3c7; border-color: #d97706; cursor: not-allowed; }
+    .premium-unlocked { cursor: text; background-color: #fef3c7; border-color: #d97706; }
+    .recommendation-accept { background-color: #dcfce7; border-color: #16a34a; color: #15803d; }
+    .recommendation-counter { background-color: #fef3c7; border-color: #d97706; color: #a16207; }
+    .recommendation-decline { background-color: #fee2e2; border-color: #dc2626; color: #dc2626; }
+    .spreadsheet-row { display: grid; grid-template-columns: 1fr 120px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid #e5e7eb; }
+    .spreadsheet-row:last-child { border-bottom: none; }
+    .tooltip { position: relative; cursor: help; }
+    .tooltip:hover::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 8px 12px; border-radius: 6px; font-size: 12px; white-space: nowrap; z-index: 1000; }
+    .premium-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .premium-overlay.active { opacity: 1; visibility: visible; }
+    @media (max-width: 768px) { .spreadsheet-row { grid-template-columns: 1fr 100px; gap: 8px; } }
+</style>
+</head>
+<body class="bg-gray-50 min-h-full">
+
+<!-- Premium Upgrade Overlay -->
+<div id="premiumOverlay" class="premium-overlay">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-2xl mx-4 max-h-[90vh] overflow-y-auto relative">
+        <div class="text-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">🚀 Upgrade to RoQuilla Premium</h2>
+            <p class="text-gray-600 text-lg leading-relaxed">
+                Unlock advanced features: auto ZIP-to-ZIP mileage, PDF export, eJournal with digital signature, and more.
+            </p>
+        </div>
+
+        <!-- Pricing Plans -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Premium Monthly -->
+            <div class="border-2 border-yellow-400 rounded-lg p-6 bg-gradient-to-br from-yellow-50 to-orange-50">
+                <div class="text-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Premium</h3>
+                    <div class="text-3xl font-bold text-yellow-600 mt-2">$69.99<span class="text-lg text-gray-600">/mo</span></div>
+                </div>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Unlock all gold fields</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Auto ZIP-to-ZIP mileage</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>PDF export & save</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Notary eJournal with digital signature</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Mobile/tablet optimized</li>
+                </ul>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="mt-4">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="YOUR_PREMIUM_BUTTON_ID">
+                    <input type="hidden" name="custom" value="premium=1">
+                    <input type="submit" value="🚀 Upgrade - $69.99/month" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg">
+                </form>
+            </div>
+
+            <!-- Pro Business Yearly -->
+            <div class="border-2 border-purple-400 rounded-lg p-6 bg-gradient-to-br from-purple-50 to-blue-50">
+                <div class="text-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Pro Business</h3>
+                    <div class="text-3xl font-bold text-purple-600 mt-2">$199<span class="text-lg text-gray-600">/year</span></div>
+                    <div class="text-sm text-green-600 font-semibold">Best Value!</div>
+                </div>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>All Premium features</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Job tracking dashboard</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Monthly profit reports</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Client management</li>
+                    <li class="flex items-center"><span class="text-green-500 mr-2">✓</span>Priority support</li>
+                </ul>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="mt-4">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="YOUR_PRO_BUTTON_ID">
+                    <input type="hidden" name="custom" value="premium=1">
+                    <input type="submit" value="💼 Upgrade - $199/year" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-lg">
+                </form>
+            </div>
+        </div>
+
+        <button id="continueFreeBtn" class="w-full text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg transition-colors underline">Continue with Free Plan</button>
+        <button id="closeOverlayBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl">×</button>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto p-4">
+    <header class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">RoQuilla Calculator</h1>
+        <p class="text-gray-600 text-lg">Professional loan signing profitability analysis with $100 minimum profit threshold</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-6">
+        <!-- Asking Fee -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">💰 Asking Fee</h2>
+            <div class="spreadsheet-row">
+                <label for="askingFee" class="text-sm font-medium text-gray-700 tooltip" data-tooltip="Total fee offered by client for loan signing">Signing Fee</label>
+                <input type="number" id="askingFee" class="px-3 py-2 border-2 rounded-md editable-green focus:ring-2 focus:ring-green-500 text-right" placeholder="200" step="0.01">
+            </div>
+        </section>
+
+        <!-- Expenses -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">📊 Expenses</h2>
+            <div class="space-y-1">
+                <div class="spreadsheet-row">
+                    <label for="mileageMiles" class="text-sm font-medium text-gray-700 tooltip" data-tooltip="Total roundtrip miles to signing location">Roundtrip Miles</label>
+                    <input type="number" id="mileageMiles" class="px-3 py-2 border-2 rounded-md editable-green focus:ring-2 focus:ring-green-500 text-right" placeholder="30" step="0.1">
+                </div>
+                <div class="spreadsheet-row">
+                    <label for="dropoffMiles" class="text-sm font-medium text-gray-700 tooltip" data-tooltip="Miles to drop off completed documents">Drop-off Miles</label>
+                    <input type="number" id="dropoffMiles" class="px-3 py-2 border-2 rounded-md editable-green focus:ring-2 focus:ring-green-500 text-right" placeholder="5" step="0.1">
+                </div>
+                <div class="spreadsheet-row">
+                    <label for="edocFee" class="text-sm font-medium text-gray-700 tooltip flex items-center" data-tooltip="Electronic document processing fee">eDoc Fee <span class="ml-2 text-xs bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded">Premium</span></label>
+                    <input type="number" id="edocFee" class="px-3 py-2 border-2 rounded-md premium-gold text-right" placeholder="0" step="0.01" readonly>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">📈 Results</h2>
+            <div class="space-y-1">
+                <div class="spreadsheet-row"><span class="text-sm font-medium text-gray-700">Total Expenses:</span><span id="totalExpenses" class="font-bold text-red-600 text-right">$0.00</span></div>
+                <div class="spreadsheet-row"><span class="text-sm font-medium text-gray-700">Net Profit:</span><span id="netProfit" class="font-bold text-green-600 text-right">$0.00</span></div>
+                <div class="spreadsheet-row"><span class="text-sm font-bold text-gray-800">Hourly Rate:</span><span id="hourlyRate" class="font-bold text-purple-600 text-right">$0.00/hr</span></div>
+            </div>
+
+            <div id="recommendation" class="mt-4 p-4 rounded-lg border-2 recommendation-accept">
+                <div class="flex items-center justify-between mb-2"><span class="font-semibold">Recommendation:</span><span id="recommendationText" class="font-bold">CALCULATE</span></div>
+                <p id="recommendationReason" class="text-sm">Enter job details to see recommendation</p>
+            </div>
+
+            <div class="mt-6 space-y-3">
+                <button id="showUpgradeBtn" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-all transform hover:scale-105">
+                    🚀 Upgrade to Premium
+                </button>
+                <button id="continueFreeLink" class="w-full text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg transition-colors text-sm underline">
+                    Continue with Free Plan
+                </button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+class RoQuillaCalculator {
+    constructor() {
+        this.minProfitThreshold = 100;
+        this.mileageRate = 0.70;
+        this.dropoffRate = 0.70;
+        this.isPremium = this.checkPremiumAccess();
+        this.initializeElements();
+        this.bindEvents();
+        this.updatePremiumUI();
+        this.calculate();
+
+        // Auto-hide overlay if premium
+        if (this.isPremium) this.hideUpgradeOverlay();
+    }
+
+    checkPremiumAccess() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('premium') === '1') localStorage.setItem('roquillaPremium', '1');
+        return localStorage.getItem('roquillaPremium') === '1';
+    }
+
+    initializeElements() {
+        this.askingFee = document.getElementById('askingFee');
+        this.mileageMiles = document.getElementById('mileageMiles');
+        this.dropoffMiles = document.getElementById('dropoffMiles');
+        this.edocFee = document.getElementById('edocFee');
+        this.totalExpensesEl = document.getElementById('totalExpenses');
+        this.netProfitEl = document.getElementById('netProfit');
+        this.hourlyRateEl = document.getElementById('hourlyRate');
+        this.recommendationEl = document.getElementById('recommendation');
+        this.recommendationTextEl = document.getElementById('recommendationText');
+        this.recommendationReasonEl = document.getElementById('recommendationReason');
+        this.showUpgradeBtn = document.getElementById('showUpgradeBtn');
+        this.continueFreeLink = document.getElementById('continueFreeLink');
+        this.premiumOverlay = document.getElementById('premiumOverlay');
+        this.continueFreeBtn = document.getElementById('continueFreeBtn');
+        this.closeOverlayBtn = document.getElementById('closeOverlayBtn');
+    }
+
+    bindEvents() {
+        [this.askingFee, this.mileageMiles, this.dropoffMiles, this.edocFee].forEach(input => input.addEventListener('input', () => this.calculate()));
+        this.showUpgradeBtn.addEventListener('click', () => this.showUpgradeOverlay());
+        this.continueFreeLink.addEventListener('click', () => this.hideUpgradeOverlay());
+        this.continueFreeBtn.addEventListener('click', () => this.hideUpgradeOverlay());
+        this.closeOverlayBtn.addEventListener('click', () => this.hideUpgradeOverlay());
+        this.premiumOverlay.addEventListener('click', (e) => { if (e.target === this.premiumOverlay) this.hideUpgradeOverlay(); });
+    }
+
+    updatePremiumUI() {
+        if (this.isPremium) {
+            this.edocFee.removeAttribute('readonly');
+            this.edocFee.classList.add('premium-unlocked');
+        }
+    }
+
+    calculate() {
+        const askingFee = parseFloat(this.askingFee.value) || 0;
+        const mileageCost = (parseFloat(this.mileageMiles.value) || 0) * this.mileageRate;
+        const dropoffCost = (parseFloat(this.dropoffMiles.value) || 0) * this.dropoffRate;
+        const edocFee = parseFloat(this.edocFee.value) || 0;
+        const totalExpenses = mileageCost + dropoffCost + edocFee;
+        const netProfit = askingFee - totalExpenses;
+        const totalTime = 1;
+        const hourlyRate = totalTime > 0 ? netProfit / totalTime : 0;
+
+        this.totalExpensesEl.textContent = `$${totalExpenses.toFixed(2)}`;
+        this.netProfitEl.textContent = `$${netProfit.toFixed(2)}`;
+        this.hourlyRateEl.textContent = `$${hourlyRate.toFixed(2)}/hr`;
+
+        let recommendation, reason, className;
+        if (netProfit < this.minProfitThreshold) { recommendation="DECLINE"; reason=`Below $${this.minProfitThreshold} minimum profit. Current: $${netProfit.toFixed(2)}.`; className='recommendation-decline'; }
+        else if (hourlyRate < 25) { recommendation="COUNTER OFFER"; reason=`Hourly rate $${hourlyRate.toFixed(2)}/hr is below $25/hr.`; className='recommendation-counter'; }
+        else { recommendation="ACCEPT"; reason=`Profit $${netProfit.toFixed(2)} meets target.`; className='recommendation-accept'; }
+
+        this.recommendationTextEl.textContent = recommendation;
+        this.recommendationReasonEl.textContent = reason;
+        this.recommendationEl.className = `mt-4 p-4 rounded-lg border-2 ${className}`;
+    }
+
+    showUpgradeOverlay() { this.premiumOverlay.classList.add('active'); document.body.style.overflow='hidden'; }
+    hideUpgradeOverlay() { this.premiumOverlay.classList.remove('active'); document.body.style.overflow='auto'; }
+}
+
+document.addEventListener('DOMContentLoaded', () => { new RoQuillaCalculator(); });
+</script>
+</body>
+</html>
