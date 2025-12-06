@@ -1,0 +1,719 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"Segoe UI Emoji";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"Segoe UI Symbol";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;}
+.MsoChpDefault
+	{font-family:"Verdana",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>&lt;!DOCTYPE html&gt;</p>
+
+<p class=MsoNormal>&lt;html lang=&quot;en&quot;&gt;</p>
+
+<p class=MsoNormal>&lt;head&gt;</p>
+
+<p class=MsoNormal>&lt;meta charset=&quot;UTF-8&quot;&gt;</p>
+
+<p class=MsoNormal>&lt;meta name=&quot;viewport&quot;
+content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</p>
+
+<p class=MsoNormal>&lt;title&gt;RoQuilla Calculator&lt;/title&gt;</p>
+
+<p class=MsoNormal>&lt;script
+src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;</p>
+
+<p class=MsoNormal>&lt;style&gt;</p>
+
+<p class=MsoNormal>    body { box-sizing: border-box; }</p>
+
+<p class=MsoNormal>    .editable-green { background-color: #dcfce7;
+border-color: #16a34a; }</p>
+
+<p class=MsoNormal>    .premium-gold { background-color: #fef3c7; border-color:
+#d97706; cursor: not-allowed; }</p>
+
+<p class=MsoNormal>    .premium-unlocked { cursor: text; background-color:
+#fef3c7; border-color: #d97706; }</p>
+
+<p class=MsoNormal>    .recommendation-accept { background-color: #dcfce7;
+border-color: #16a34a; color: #15803d; }</p>
+
+<p class=MsoNormal>    .recommendation-counter { background-color: #fef3c7;
+border-color: #d97706; color: #a16207; }</p>
+
+<p class=MsoNormal>    .recommendation-decline { background-color: #fee2e2;
+border-color: #dc2626; color: #dc2626; }</p>
+
+<p class=MsoNormal>    .spreadsheet-row { display: grid; grid-template-columns:
+1fr 120px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px
+solid #e5e7eb; }</p>
+
+<p class=MsoNormal>    .spreadsheet-row:last-child { border-bottom: none; }</p>
+
+<p class=MsoNormal>    .tooltip { position: relative; cursor: help; }</p>
+
+<p class=MsoNormal>    .tooltip:hover::after { content: attr(data-tooltip);
+position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+background: #1f2937; color: white; padding: 8px 12px; border-radius: 6px;
+font-size: 12px; white-space: nowrap; z-index: 1000; }</p>
+
+<p class=MsoNormal>    .premium-overlay { position: fixed; top: 0; left: 0;
+right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items:
+center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden;
+transition: all 0.3s ease; }</p>
+
+<p class=MsoNormal>    .premium-overlay.active { opacity: 1; visibility:
+visible; }</p>
+
+<p class=MsoNormal>    @media (max-width: 768px) { .spreadsheet-row {
+grid-template-columns: 1fr 100px; gap: 8px; } }</p>
+
+<p class=MsoNormal>&lt;/style&gt;</p>
+
+<p class=MsoNormal>&lt;/head&gt;</p>
+
+<p class=MsoNormal>&lt;body class=&quot;bg-gray-50 min-h-full&quot;&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&lt;!-- Premium Upgrade Overlay --&gt;</p>
+
+<p class=MsoNormal>&lt;div id=&quot;premiumOverlay&quot;
+class=&quot;premium-overlay&quot;&gt;</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;bg-white rounded-xl shadow-2xl p-8
+max-w-2xl mx-4 max-h-[90vh] overflow-y-auto relative&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;text-center mb-6&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;h2 class=&quot;text-3xl font-bold
+text-gray-800 mb-4&quot;&gt;<span style='font-family:"Segoe UI Emoji",sans-serif'>&#128640;</span>
+Upgrade to RoQuilla Premium&lt;/h2&gt;</p>
+
+<p class=MsoNormal>            &lt;p class=&quot;text-gray-600 text-lg
+leading-relaxed&quot;&gt;</p>
+
+<p class=MsoNormal>                Unlock advanced features: auto ZIP-to-ZIP
+mileage, PDF export, eJournal with digital signature, and more.</p>
+
+<p class=MsoNormal>            &lt;/p&gt;</p>
+
+<p class=MsoNormal>        &lt;/div&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        &lt;!-- Pricing Plans --&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;grid md:grid-cols-2 gap-6
+mb-8&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;!-- Premium Monthly --&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;border-2 border-yellow-400
+rounded-lg p-6 bg-gradient-to-br from-yellow-50 to-orange-50&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;div class=&quot;text-center
+mb-4&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;h3 class=&quot;text-xl font-bold
+text-gray-800&quot;&gt;Premium&lt;/h3&gt;</p>
+
+<p class=MsoNormal>                    &lt;div class=&quot;text-3xl font-bold
+text-yellow-600 mt-2&quot;&gt;$69.99&lt;span class=&quot;text-lg
+text-gray-600&quot;&gt;/mo&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;ul class=&quot;space-y-3
+text-sm&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Unlock
+all gold fields&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Auto
+ZIP-to-ZIP mileage&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;PDF
+export &amp; save&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Notary
+eJournal with digital signature&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Mobile/tablet
+optimized&lt;/li&gt;</p>
+
+<p class=MsoNormal>                &lt;/ul&gt;</p>
+
+<p class=MsoNormal>                &lt;form
+action=&quot;https://www.paypal.com/cgi-bin/webscr&quot;
+method=&quot;post&quot; target=&quot;_blank&quot; class=&quot;mt-4&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;hidden&quot;
+name=&quot;cmd&quot; value=&quot;_s-xclick&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;hidden&quot;
+name=&quot;hosted_button_id&quot; value=&quot;YOUR_PREMIUM_BUTTON_ID&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;hidden&quot;
+name=&quot;custom&quot; value=&quot;premium=1&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;submit&quot;
+value=&quot;<span style='font-family:"Segoe UI Emoji",sans-serif'>&#128640;</span>
+Upgrade - $69.99/month&quot; class=&quot;w-full bg-yellow-500
+hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;/form&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>            &lt;!-- Pro Business Yearly --&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;border-2 border-purple-400
+rounded-lg p-6 bg-gradient-to-br from-purple-50 to-blue-50&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;div class=&quot;text-center
+mb-4&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;h3 class=&quot;text-xl font-bold
+text-gray-800&quot;&gt;Pro Business&lt;/h3&gt;</p>
+
+<p class=MsoNormal>                    &lt;div class=&quot;text-3xl font-bold
+text-purple-600 mt-2&quot;&gt;$199&lt;span class=&quot;text-lg
+text-gray-600&quot;&gt;/year&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>                    &lt;div class=&quot;text-sm
+text-green-600 font-semibold&quot;&gt;Best Value!&lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;ul class=&quot;space-y-3
+text-sm&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;All
+Premium features&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Job
+tracking dashboard&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Monthly
+profit reports&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Client
+management&lt;/li&gt;</p>
+
+<p class=MsoNormal>                    &lt;li class=&quot;flex
+items-center&quot;&gt;&lt;span class=&quot;text-green-500 mr-2&quot;&gt;<span
+style='font-family:"Segoe UI Symbol",sans-serif'>&#10003;</span>&lt;/span&gt;Priority
+support&lt;/li&gt;</p>
+
+<p class=MsoNormal>                &lt;/ul&gt;</p>
+
+<p class=MsoNormal>                &lt;form
+action=&quot;https://www.paypal.com/cgi-bin/webscr&quot;
+method=&quot;post&quot; target=&quot;_blank&quot; class=&quot;mt-4&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;hidden&quot;
+name=&quot;cmd&quot; value=&quot;_s-xclick&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;hidden&quot;
+name=&quot;hosted_button_id&quot; value=&quot;YOUR_PRO_BUTTON_ID&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;hidden&quot;
+name=&quot;custom&quot; value=&quot;premium=1&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;submit&quot;
+value=&quot;<span style='font-family:"Segoe UI Emoji",sans-serif'>&#128188;</span>
+Upgrade - $199/year&quot; class=&quot;w-full bg-purple-500 hover:bg-purple-600
+text-white font-bold py-3 px-4 rounded-lg&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;/form&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;/div&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        &lt;button id=&quot;continueFreeBtn&quot;
+class=&quot;w-full text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg
+transition-colors underline&quot;&gt;Continue with Free Plan&lt;/button&gt;</p>
+
+<p class=MsoNormal>        &lt;button id=&quot;closeOverlayBtn&quot;
+class=&quot;absolute top-4 right-4 text-gray-400 hover:text-gray-600
+text-2xl&quot;&gt;×&lt;/button&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;</p>
+
+<p class=MsoNormal>&lt;/div&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&lt;div class=&quot;max-w-7xl mx-auto p-4&quot;&gt;</p>
+
+<p class=MsoNormal>    &lt;header class=&quot;text-center mb-8&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;h1 class=&quot;text-3xl md:text-4xl font-bold
+text-gray-800 mb-3&quot;&gt;RoQuilla Calculator&lt;/h1&gt;</p>
+
+<p class=MsoNormal>        &lt;p class=&quot;text-gray-600
+text-lg&quot;&gt;Professional loan signing profitability analysis with $100
+minimum profit threshold&lt;/p&gt;</p>
+
+<p class=MsoNormal>    &lt;/header&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-2
+xl:grid-cols-5 gap-6&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;!-- Asking Fee --&gt;</p>
+
+<p class=MsoNormal>        &lt;section class=&quot;bg-white rounded-lg
+shadow-md p-6&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;h2 class=&quot;text-xl font-semibold
+text-gray-800 mb-4 flex items-center&quot;&gt;<span style='font-family:"Segoe UI Emoji",sans-serif'>&#128176;</span>
+Asking Fee&lt;/h2&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;spreadsheet-row&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;label for=&quot;askingFee&quot;
+class=&quot;text-sm font-medium text-gray-700 tooltip&quot;
+data-tooltip=&quot;Total fee offered by client for loan
+signing&quot;&gt;Signing Fee&lt;/label&gt;</p>
+
+<p class=MsoNormal>                &lt;input type=&quot;number&quot;
+id=&quot;askingFee&quot; class=&quot;px-3 py-2 border-2 rounded-md
+editable-green focus:ring-2 focus:ring-green-500 text-right&quot;
+placeholder=&quot;200&quot; step=&quot;0.01&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;/section&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        &lt;!-- Expenses --&gt;</p>
+
+<p class=MsoNormal>        &lt;section class=&quot;bg-white rounded-lg
+shadow-md p-6&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;h2 class=&quot;text-xl font-semibold
+text-gray-800 mb-4 flex items-center&quot;&gt;<span style='font-family:"Segoe UI Emoji",sans-serif'>&#128202;</span>
+Expenses&lt;/h2&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;space-y-1&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;div
+class=&quot;spreadsheet-row&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;label for=&quot;mileageMiles&quot;
+class=&quot;text-sm font-medium text-gray-700 tooltip&quot;
+data-tooltip=&quot;Total roundtrip miles to signing location&quot;&gt;Roundtrip
+Miles&lt;/label&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;number&quot;
+id=&quot;mileageMiles&quot; class=&quot;px-3 py-2 border-2 rounded-md
+editable-green focus:ring-2 focus:ring-green-500 text-right&quot;
+placeholder=&quot;30&quot; step=&quot;0.1&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;div
+class=&quot;spreadsheet-row&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;label for=&quot;dropoffMiles&quot;
+class=&quot;text-sm font-medium text-gray-700 tooltip&quot;
+data-tooltip=&quot;Miles to drop off completed documents&quot;&gt;Drop-off
+Miles&lt;/label&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;number&quot;
+id=&quot;dropoffMiles&quot; class=&quot;px-3 py-2 border-2 rounded-md
+editable-green focus:ring-2 focus:ring-green-500 text-right&quot;
+placeholder=&quot;5&quot; step=&quot;0.1&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;div
+class=&quot;spreadsheet-row&quot;&gt;</p>
+
+<p class=MsoNormal>                    &lt;label for=&quot;edocFee&quot;
+class=&quot;text-sm font-medium text-gray-700 tooltip flex items-center&quot;
+data-tooltip=&quot;Electronic document processing fee&quot;&gt;eDoc Fee
+&lt;span class=&quot;ml-2 text-xs bg-yellow-100 text-yellow-800 px-1 py-0.5
+rounded&quot;&gt;Premium&lt;/span&gt;&lt;/label&gt;</p>
+
+<p class=MsoNormal>                    &lt;input type=&quot;number&quot;
+id=&quot;edocFee&quot; class=&quot;px-3 py-2 border-2 rounded-md premium-gold
+text-right&quot; placeholder=&quot;0&quot; step=&quot;0.01&quot; readonly&gt;</p>
+
+<p class=MsoNormal>                &lt;/div&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;/section&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        &lt;!-- Results --&gt;</p>
+
+<p class=MsoNormal>        &lt;section class=&quot;bg-white rounded-lg
+shadow-md p-6&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;h2 class=&quot;text-xl font-semibold
+text-gray-800 mb-4 flex items-center&quot;&gt;<span style='font-family:"Segoe UI Emoji",sans-serif'>&#128200;</span>
+Results&lt;/h2&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;space-y-1&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;div
+class=&quot;spreadsheet-row&quot;&gt;&lt;span class=&quot;text-sm font-medium
+text-gray-700&quot;&gt;Total Expenses:&lt;/span&gt;&lt;span
+id=&quot;totalExpenses&quot; class=&quot;font-bold text-red-600
+text-right&quot;&gt;$0.00&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;div
+class=&quot;spreadsheet-row&quot;&gt;&lt;span class=&quot;text-sm font-medium
+text-gray-700&quot;&gt;Net Profit:&lt;/span&gt;&lt;span
+id=&quot;netProfit&quot; class=&quot;font-bold text-green-600
+text-right&quot;&gt;$0.00&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;div
+class=&quot;spreadsheet-row&quot;&gt;&lt;span class=&quot;text-sm font-bold
+text-gray-800&quot;&gt;Hourly Rate:&lt;/span&gt;&lt;span
+id=&quot;hourlyRate&quot; class=&quot;font-bold text-purple-600
+text-right&quot;&gt;$0.00/hr&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>            &lt;div id=&quot;recommendation&quot;
+class=&quot;mt-4 p-4 rounded-lg border-2 recommendation-accept&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;div class=&quot;flex items-center
+justify-between mb-2&quot;&gt;&lt;span
+class=&quot;font-semibold&quot;&gt;Recommendation:&lt;/span&gt;&lt;span
+id=&quot;recommendationText&quot;
+class=&quot;font-bold&quot;&gt;CALCULATE&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>                &lt;p id=&quot;recommendationReason&quot;
+class=&quot;text-sm&quot;&gt;Enter job details to see recommendation&lt;/p&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;mt-6 space-y-3&quot;&gt;</p>
+
+<p class=MsoNormal>                &lt;button id=&quot;showUpgradeBtn&quot;
+class=&quot;w-full bg-gradient-to-r from-yellow-500 to-orange-500
+hover:from-yellow-600 hover:to-orange-600 text-white font-bold py-3 px-4
+rounded-lg transition-all transform hover:scale-105&quot;&gt;</p>
+
+<p class=MsoNormal>                    <span style='font-family:"Segoe UI Emoji",sans-serif'>&#128640;</span>
+Upgrade to Premium</p>
+
+<p class=MsoNormal>                &lt;/button&gt;</p>
+
+<p class=MsoNormal>                &lt;button id=&quot;continueFreeLink&quot;
+class=&quot;w-full text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg
+transition-colors text-sm underline&quot;&gt;</p>
+
+<p class=MsoNormal>                    Continue with Free Plan</p>
+
+<p class=MsoNormal>                &lt;/button&gt;</p>
+
+<p class=MsoNormal>            <span lang=FR>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=FR>        &lt;/section&gt;</span></p>
+
+<p class=MsoNormal><span lang=FR>    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=FR>&lt;/div&gt;</span></p>
+
+<p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=FR>&lt;script&gt;</span></p>
+
+<p class=MsoNormal>class RoQuillaCalculator {</p>
+
+<p class=MsoNormal>    constructor() {</p>
+
+<p class=MsoNormal>        this.minProfitThreshold = 100;</p>
+
+<p class=MsoNormal>        this.mileageRate = 0.70;</p>
+
+<p class=MsoNormal>        this.dropoffRate = 0.70;</p>
+
+<p class=MsoNormal>        this.isPremium = this.checkPremiumAccess();</p>
+
+<p class=MsoNormal>        this.initializeElements();</p>
+
+<p class=MsoNormal>        this.bindEvents();</p>
+
+<p class=MsoNormal>        this.updatePremiumUI();</p>
+
+<p class=MsoNormal>        this.calculate();</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        // Auto-hide overlay if premium</p>
+
+<p class=MsoNormal>        if (this.isPremium) this.hideUpgradeOverlay();</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    checkPremiumAccess() {</p>
+
+<p class=MsoNormal>        const urlParams = new
+URLSearchParams(window.location.search);</p>
+
+<p class=MsoNormal>        if (urlParams.get('premium') === '1')
+localStorage.setItem('roquillaPremium', '1');</p>
+
+<p class=MsoNormal>        return localStorage.getItem('roquillaPremium') ===
+'1';</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    initializeElements() {</p>
+
+<p class=MsoNormal>        this.askingFee =
+document.getElementById('askingFee');</p>
+
+<p class=MsoNormal>        this.mileageMiles =
+document.getElementById('mileageMiles');</p>
+
+<p class=MsoNormal>        this.dropoffMiles =
+document.getElementById('dropoffMiles');</p>
+
+<p class=MsoNormal>        this.edocFee = document.getElementById('edocFee');</p>
+
+<p class=MsoNormal>        this.totalExpensesEl =
+document.getElementById('totalExpenses');</p>
+
+<p class=MsoNormal>        this.netProfitEl =
+document.getElementById('netProfit');</p>
+
+<p class=MsoNormal>        this.hourlyRateEl =
+document.getElementById('hourlyRate');</p>
+
+<p class=MsoNormal>        this.recommendationEl =
+document.getElementById('recommendation');</p>
+
+<p class=MsoNormal>        this.recommendationTextEl =
+document.getElementById('recommendationText');</p>
+
+<p class=MsoNormal>        this.recommendationReasonEl =
+document.getElementById('recommendationReason');</p>
+
+<p class=MsoNormal>        this.showUpgradeBtn =
+document.getElementById('showUpgradeBtn');</p>
+
+<p class=MsoNormal>        this.continueFreeLink =
+document.getElementById('continueFreeLink');</p>
+
+<p class=MsoNormal>        this.premiumOverlay =
+document.getElementById('premiumOverlay');</p>
+
+<p class=MsoNormal>        this.continueFreeBtn =
+document.getElementById('continueFreeBtn');</p>
+
+<p class=MsoNormal>        this.closeOverlayBtn =
+document.getElementById('closeOverlayBtn');</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    bindEvents() {</p>
+
+<p class=MsoNormal>        [this.askingFee, this.mileageMiles,
+this.dropoffMiles, this.edocFee].forEach(input =&gt;
+input.addEventListener('input', () =&gt; this.calculate()));</p>
+
+<p class=MsoNormal>        this.showUpgradeBtn.addEventListener('click', ()
+=&gt; this.showUpgradeOverlay());</p>
+
+<p class=MsoNormal>        this.continueFreeLink.addEventListener('click', ()
+=&gt; this.hideUpgradeOverlay());</p>
+
+<p class=MsoNormal>        this.continueFreeBtn.addEventListener('click', ()
+=&gt; this.hideUpgradeOverlay());</p>
+
+<p class=MsoNormal>        this.closeOverlayBtn.addEventListener('click', ()
+=&gt; this.hideUpgradeOverlay());</p>
+
+<p class=MsoNormal>        this.premiumOverlay.addEventListener('click', (e)
+=&gt; { if (e.target === this.premiumOverlay) this.hideUpgradeOverlay(); });</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    updatePremiumUI() {</p>
+
+<p class=MsoNormal>        if (this.isPremium) {</p>
+
+<p class=MsoNormal>            this.edocFee.removeAttribute('readonly');</p>
+
+<p class=MsoNormal>            this.edocFee.classList.add('premium-unlocked');</p>
+
+<p class=MsoNormal>        }</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    calculate() {</p>
+
+<p class=MsoNormal>        const askingFee = parseFloat(this.askingFee.value)
+|| 0;</p>
+
+<p class=MsoNormal>        const mileageCost =
+(parseFloat(this.mileageMiles.value) || 0) * this.mileageRate;</p>
+
+<p class=MsoNormal>        const dropoffCost =
+(parseFloat(this.dropoffMiles.value) || 0) * this.dropoffRate;</p>
+
+<p class=MsoNormal>        const edocFee = parseFloat(this.edocFee.value) || 0;</p>
+
+<p class=MsoNormal>        const totalExpenses = mileageCost + dropoffCost +
+edocFee;</p>
+
+<p class=MsoNormal>        const netProfit = askingFee - totalExpenses;</p>
+
+<p class=MsoNormal>        const totalTime = 1;</p>
+
+<p class=MsoNormal>        const hourlyRate = totalTime &gt; 0 ? netProfit /
+totalTime : 0;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        this.totalExpensesEl.textContent =
+`$${totalExpenses.toFixed(2)}`;</p>
+
+<p class=MsoNormal>        this.netProfitEl.textContent =
+`$${netProfit.toFixed(2)}`;</p>
+
+<p class=MsoNormal>        this.hourlyRateEl.textContent =
+`$${hourlyRate.toFixed(2)}/hr`;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        let recommendation, reason, className;</p>
+
+<p class=MsoNormal>        if (netProfit &lt; this.minProfitThreshold) {
+recommendation=&quot;DECLINE&quot;; reason=`Below $${this.minProfitThreshold}
+minimum profit. Current: $${netProfit.toFixed(2)}.`;
+className='recommendation-decline'; }</p>
+
+<p class=MsoNormal>        else if (hourlyRate &lt; 25) {
+recommendation=&quot;COUNTER OFFER&quot;; reason=`Hourly rate
+$${hourlyRate.toFixed(2)}/hr is below $25/hr.`;
+className='recommendation-counter'; }</p>
+
+<p class=MsoNormal>        else { recommendation=&quot;ACCEPT&quot;;
+reason=`Profit $${netProfit.toFixed(2)} meets target.`;
+className='recommendation-accept'; }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>        this.recommendationTextEl.textContent =
+recommendation;</p>
+
+<p class=MsoNormal>        this.recommendationReasonEl.textContent = reason;</p>
+
+<p class=MsoNormal>        this.recommendationEl.className = `mt-4 p-4
+rounded-lg border-2 ${className}`;</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    showUpgradeOverlay() {
+this.premiumOverlay.classList.add('active');
+document.body.style.overflow='hidden'; }</p>
+
+<p class=MsoNormal>    hideUpgradeOverlay() {
+this.premiumOverlay.classList.remove('active');
+document.body.style.overflow='auto'; }</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>document.addEventListener('DOMContentLoaded', () =&gt; { new
+RoQuillaCalculator(); });</p>
+
+<p class=MsoNormal>&lt;/script&gt;</p>
+
+<p class=MsoNormal>&lt;/body&gt;</p>
+
+<p class=MsoNormal>&lt;/html&gt;</p>
+
+</div>
+
+</body>
+
+</html>
